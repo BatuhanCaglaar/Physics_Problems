@@ -1,31 +1,38 @@
 # Section 0 — Mathematical Foundations
-## 3. Proportionality
+## 3. Proportionality (Universal Law of Gravitation)
 
-We use the **Universal Law of Gravitation**:
-
-$$F = G \frac{m_1 m_2}{r^2}$$
+###  Problem Statement
+Using the formula $F = G \frac{m_1 m_2}{r^2}$, determine how the force $F$ changes if:
+1. The distance $r$ is **doubled** ($r' = 2r$).
+2. Both masses $m_1$ and $m_2$ are **halved** ($m' = m/2$).
 
 ---
 
-## Step-by-Step Calculation
+###  My Logic (Explanation for Class)
+"In physics, we often look at how variables scale. Since the force is **directly proportional** to the masses and **inversely proportional** to the square of the distance, I substituted the new values into the original equation to find the scaling factor."
 
-Substitute the new values into the formula:
+---
 
+###  Step-by-Step Calculation
+
+**Step 1: Write the new parameters**
+- New masses: $m_1' = \frac{1}{2}m_1$ and $m_2' = \frac{1}{2}m_2$
+- New distance: $r' = 2r$
+
+**Step 2: Substitute into the formula**
 $$F' = G \frac{(\frac{1}{2}m_1)(\frac{1}{2}m_2)}{(2r)^2}$$
 
-### 1) Simplify the numerator:
-$$\frac{1}{2}m_1 \cdot \frac{1}{2}m_2 = \frac{1}{4} m_1 m_2$$
+**Step 3: Simplify the fractions**
+- The numerator becomes: $\frac{1}{4} m_1 m_2$
+- The denominator becomes: $4r^2$
 
-### 2) Simplify the denominator:
-$$(2r)^2 = 4r^2$$
-
-### 3) Combine them:
-$$F' = G \frac{\frac{1}{4} m_1 m_2}{4r^2} = \frac{1}{16} \left( G \frac{m_1 m_2}{r^2} \right)$$
+**Step 4: Combine everything**
+$$F' = \frac{1/4}{4} \left( G \frac{m_1 m_2}{r^2} \right) = \frac{1}{16} F$$
 
 ---
 
-## Final Answer
+###  Final Answer
+The gravitational force decreases by a factor of **16**.
 
-The force $F$ decreases by a factor of **16**.
-
-$$F' = \frac{1}{16} F$$
+---
+*Presentation Tip: Mention that the distance squared ($r^2$) is the most sensitive part of the equation. Doubling the distance alone would have decreased the force by 4 times, but halving the masses adds another 4 times decrease ($4 \times 4 = 16$).*
