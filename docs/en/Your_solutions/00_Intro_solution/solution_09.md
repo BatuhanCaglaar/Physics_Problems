@@ -18,7 +18,7 @@ $$A'(x) = 3 - 3x^2$$
 **Step 2: Find the critical point**
 Set $A'(x) = 0$:
 $$3 - 3x^2 = 0 \implies x^2 = 1 \implies x = 1$$
-*(Note: $x = -1$ is ignored as it is not in the first quadrant).*
+*(Note: x = -1 is ignored as it is not in the first quadrant).*
 
 **Step 3: Find the corresponding height**
 $$y = 3 - (1)^2 = 2$$
@@ -27,3 +27,4 @@ $$y = 3 - (1)^2 = 2$$
 
 ### Final Result
 The dimensions for the maximum area are **$x = 1$** and **$y = 2$**. The maximum area is **2**.
+
