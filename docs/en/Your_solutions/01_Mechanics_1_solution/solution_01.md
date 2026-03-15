@@ -52,3 +52,5 @@ $$R = \frac{100^2 \cdot \sin(74^\circ)}{9.8} \approx \frac{10000 \cdot 0.96}{9.8
 - **Time of Flight:** $12.24 \text{ s}$
 - **Maximum Height:** $183.67 \text{ m}$
 - **Total Range:** $979.59 \text{ m}$
+
+
