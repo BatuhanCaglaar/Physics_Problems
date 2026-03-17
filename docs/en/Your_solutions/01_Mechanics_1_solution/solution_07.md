@@ -78,13 +78,3 @@ For an acceleration to be constant, it must not change in magnitude or direction
 - The y-component $a_y = 18t$ is a linear function of time.
 
 Since the y-component of the acceleration depends on $t$, the **acceleration is NOT constant.**
-
----
-
-## 5) Trajectory Visualization
-
-Using WolframAlpha to plot the parametric equations from $t=0$ to $t=2$:
-
-![Trajectory Plot](image_1a3a24.png)
-
-*The plot confirms a power-law relationship, where the curve starts at the origin (0,0) and rises increasingly steeply as $x$ increases.*
