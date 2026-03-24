@@ -1,40 +1,24 @@
-# Section 1 — Mechanics I
-## 5. Relative Velocity: River Crossing
+# Problem 5: Relative Velocity in a Flowing River
 
-### Problem Statement
-- **River Flow ($v_r$):** 2 m/s [East]
-- **Boat Speed in still water ($v_b$):** 5 m/s
-- **River Width ($d$):** 200 meters
-- **Goal:** Cross the river directly **North**.
+A boat with a speed of $v_b = 5 \text{ m/s}$ in still water wants to cross a river flowing east at $v_r = 2 \text{ m/s}$ directly North.
 
 ---
 
-### Vector Analysis
+## 1) Determining the Heading Direction ($\theta$)
+To move directly North relative to the ground, the boat's eastward velocity relative to the water must exactly cancel the river's flow. Therefore, the boat must aim at an angle $\theta$ **West of North**.
 
-To move directly North, the boat's velocity relative to the ground ($\vec{v}_g$) must have no eastward or westward component. This means the boat must head at an angle $\theta$ **West of North** to cancel out the river's eastward drift.
+Using the velocity vector triangle:
+- $v_{bw} = 5 \text{ m/s}$ (Hypotenuse)
+- $v_r = 2 \text{ m/s}$ (Opposite side to $\theta$)
 
-#### 1. Finding the Heading Direction ($\theta$)
-We form a right-angled triangle where:
-- The hypotenuse is the boat's speed ($v_b = 5$).
-- The opposite side is the river's speed ($v_r = 2$).
-- The adjacent side is the resulting ground speed ($v_g$).
+$$\sin(\theta) = \frac{v_r}{v_{bw}} = \frac{2}{5} = 0.4$$
+$$\theta = \arcsin(0.4) \approx 23.58^\circ \text{ (West of North)}$$
 
-$$\sin(\theta) = \frac{v_{river}}{v_{boat}} = \frac{2}{5}$$
-$$\theta = \arcsin(0.4) \approx 23.58^\circ$$
+## 2) Calculating the Crossing Time
+The effective velocity directly North ($v_y$) is found using the Pythagorean theorem:
+$$v_y = \sqrt{v_{bw}^2 - v_r^2} = \sqrt{5^2 - 2^2} = \sqrt{21} \approx 4.58 \text{ m/s}$$
 
-**Heading:** The boat should head **$23.58^\circ$ West of North**.
+Given the river width $W = 200 \text{ m}$, the time required is:
+$$t = \frac{W}{v_y} = \frac{200}{4.58} \approx 43.67 \text{ s}$$
 
-#### 2. Calculating the Ground Speed ($v_g$)
-Using the Pythagorean theorem:
-$$v_g = \sqrt{v_b^2 - v_r^2} = \sqrt{5^2 - 2^2}$$
-$$v_g = \sqrt{25 - 4} = \sqrt{21} \approx 4.58 \text{ m/s}$$
-
-#### 3. Calculating the Crossing Time ($t$)
-Since the ground speed $v_g$ is directed exactly North, we use it to cover the width of the river:
-$$t = \frac{\text{Width}}{v_g} = \frac{200 \text{ m}}{4.58 \text{ m/s}} \approx 43.67 \text{ s}$$
-
----
-
-### Final Result
-- **Heading Angle:** $23.58^\circ$ West of North.
-- **Crossing Time:** $\approx 43.67$ seconds.
+**Result:** The boat should head $23.58^\circ$ West of North, and it will take approximately $43.67 \text{ seconds}$ to cross.
