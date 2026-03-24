@@ -52,6 +52,6 @@ $$-\frac{dU}{dx} = -\left( \frac{1}{2}k \cdot 2x \right) = -kx$$
 
 ---
 
-##6) Interactive HTML
+## 6) Interactive HTML
 
 file:///C:/Users/batuh/OneDrive/Masa%C3%BCst%C3%BC/S8.html
