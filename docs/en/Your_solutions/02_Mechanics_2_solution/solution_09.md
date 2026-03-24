@@ -61,7 +61,4 @@ To see the trajectory with specific values (e.g., $m=1, k=0.1, v_0=20$):
 ---
 
 ## 6) Interactive HTML/JS (RK4 Sketch)
-The problem asks for an HTML simulation. Below is the logic for an **RK4 (Runge-Kutta 4th Order)** implementation:
-- **State:** `[position, velocity]`
-- **Derivative function:** `f(v) = -g - (k/m)*v`
-- **Loop:** Calculate $k_1, k_2, k_3, k_4$ steps to update velocity and position at each frame.
+file:///C:/Users/batuh/OneDrive/Masa%C3%BCst%C3%BC/indexx.html
