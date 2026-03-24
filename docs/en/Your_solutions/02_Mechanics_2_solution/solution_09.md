@@ -61,4 +61,4 @@ To see the trajectory with specific values (e.g., $m=1, k=0.1, v_0=20$):
 ---
 
 ## 6) Interactive HTML/JS (RK4 Sketch)
-file:///C:/Users/batuh/OneDrive/Masa%C3%BCst%C3%BC/indexx.html
+file:///C:/Users/batuh/OneDrive/Masa%C3%BCst%C3%BC/S9.html
