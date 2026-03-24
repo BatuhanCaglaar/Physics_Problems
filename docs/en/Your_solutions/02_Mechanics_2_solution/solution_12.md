@@ -59,3 +59,7 @@ $$\Delta K = 104 - 2 = 102 \text{ J}$$
 
 ## 6) Trajectory Visualization (WolframAlpha Logic)
 `parametric plot (t + 1.5t^2, -t + 0.5t^2) from t=0 to 3`
+
+## 7) Interactive HTML
+
+file:///C:/Users/batuh/OneDrive/Masa%C3%BCst%C3%BC/S12.html
