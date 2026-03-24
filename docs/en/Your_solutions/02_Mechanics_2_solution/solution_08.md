@@ -49,3 +49,9 @@ $$-\frac{dU}{dx} = -\left( \frac{1}{2}k \cdot 2x \right) = -kx$$
 
 **WolframAlpha Command for Visualization:**
 `plot F = -2x and U = 0.5*2*x^2 from x=-5 to 5`
+
+---
+
+##6) Interactive HTML
+
+file:///C:/Users/batuh/OneDrive/Masa%C3%BCst%C3%BC/S8.html
