@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Problem 8: Force and Potential Energy</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>body { font-family: sans-serif; background: #fdfdfd; padding: 20px; }</style>
+</head>
+<body>
+    <h2 style="text-align:center;">Problem 8: Conservative Force Field Analysis</h2>
+    <div id="plot8" style="width:100%; max-width:850px; height:500px; margin:auto; border:1px solid #ddd;"></div>
+    <script>
+        const k = 2.0;
+        let x_vals = [], f_vals = [], u_vals = [];
+        for (let x = -5; x <= 5; x += 0.1) {
+            x_vals.push(x.toFixed(2));
+            f_vals.push(-k * x);
+            u_vals.push(0.5 * k * Math.pow(x, 2));
+        }
+        Plotly.newPlot('plot8', [
+            {x: x_vals, y: f_vals, name: 'Restoring Force F(x) = -kx', line: {color: '#e74c3c', width: 3}},
+            {x: x_vals, y: u_vals, name: 'Potential Energy U(x) = ½kx²', line: {color: '#3498db', width: 3}}
+        ], {
+            title: 'Relationship: Force vs. Potential Energy',
+            xaxis: {title: 'Displacement (x) [m]', zeroline: true},
+            yaxis: {title: 'Magnitude [N] or [J]', zeroline: true},
+            legend: {orientation: 'h', y: -0.2}
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Problem 9: Numerical Simulation with Drag</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>body { font-family: sans-serif; background: #fafafa; padding: 20px; }</style>
+</head>
+<body>
+    <h2 style="text-align:center;">Problem 9: Vertical Projectile Motion with Air Resistance</h2>
+    <div id="plot9" style="width:100%; max-width:900px; height:550px; margin:auto; border:1px solid #ddd;"></div>
+    <script>
+        // Parameters from Problem 9
+        const m = 1.0, g = 9.81, k = 0.25, v0 = 35, y0 = 10, dt = 0.02;
+        let t = 0, v = v0, y = y0;
+        let t_data = [], y_data = [], v_data = [];
+
+        while (y >= 0 && t < 10) {
+            t_data.push(t.toFixed(2));
+            y_data.push(y);
+            v_data.push(v);
+            
+            // Numerical Integration (Euler Step)
+            let acceleration = -g - (k / m) * v;
+            v += acceleration * dt;
+            y += v * dt;
+            t += dt;
+        }
+
+        Plotly.newPlot('plot9', [
+            {x: t_data, y: y_data, name: 'Height y(t) [m]', fill: 'tozeroy', fillcolor: 'rgba(52, 152, 219, 0.2)'},
+            {x: t_data, y: v_data, name: 'Velocity v(t) [m/s]', line: {dash: 'dot', color: '#2c3e50'}}
+        ], { 
+            title: 'Numerical Solution for Vertical Motion with Drag Factor k',
+            xaxis: {title: 'Time (t) [s]'},
+            yaxis: {title: 'Magnitude'},
+            legend: {x: 0.7, y: 0.9}
+        });
+    </script>
+</body>
+</html>

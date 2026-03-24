@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Problem 12: Trajectory Visualization</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h2 style="text-align:center;">Problem 12: 2D Particle Trajectory (Constant Force)</h2>
+    <div id="plot12" style="width:100%; max-width:850px; height:500px; margin:auto; border:1px solid #ddd;"></div>
+    <script>
+        let x_pts = [], y_pts = [], t_labels = [];
+        for (let t = 0; t <= 3.05; t += 0.05) {
+            // Kinematic equations derived from F = [6, 2] and m = 2
+            // x(t) = 1*t + 1.5*t^2
+            // y(t) = -1*t + 0.5*t^2
+            x_pts.push(t + 1.5 * Math.pow(t, 2));
+            y_pts.push(-t + 0.5 * Math.pow(t, 2));
+            t_labels.push(`t = ${t.toFixed(1)}s`);
+        }
+        Plotly.newPlot('plot12', [{
+            x: x_pts, y: y_pts, text: t_labels,
+            mode: 'lines+markers', 
+            name: 'Particle Path', 
+            line: {color: '#27ae60', shape: 'spline', width: 3},
+            marker: {size: 4}
+        }], {
+            title: 'Trajectory in XY Plane (Constant Force Field)',
+            xaxis: {title: 'Position X [m]', gridcolor: '#eee'},
+            yaxis: {title: 'Position Y [m]', gridcolor: '#eee'},
+            plot_bgcolor: '#fff'
+        });
+    </script>
+</body>
+</html>
