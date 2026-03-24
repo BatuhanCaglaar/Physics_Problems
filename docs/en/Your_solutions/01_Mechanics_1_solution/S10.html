@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Problem 10: 3D Helix Trajectory Simulation</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; display: flex; flex-direction: column; align-items: center; background-color: #f0f2f5; }
+        .header { margin: 20px; text-align: center; }
+        .main-container { display: flex; width: 95%; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .controls { width: 300px; padding: 20px; border-right: 1px solid #eee; }
+        .plot-area { flex-grow: 1; height: 600px; }
+        .slider-group { margin-bottom: 25px; }
+        label { font-weight: bold; display: block; margin-bottom: 5px; color: #333; }
+        input[type=range] { width: 100%; cursor: pointer; }
+        .cases { margin-top: 20px; font-size: 0.9em; background: #e8f4fd; padding: 10px; border-radius: 5px; border-left: 4px solid #2196F3; }
+        .value-span { color: #2196F3; font-family: monospace; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h2>Section 1 - Problem 10: Interactive 3D Helix</h2>
+    <p>Trajectory: r(t) = (a·cos(ωt), a·sin(ωt), bt)</p>
+</div>
+
+<div class="main-container">
+    <div class="controls">
+        <div class="slider-group">
+            <label>Radius (a): <span id="a_val" class="value-span">2.0</span></label>
+            <input type="range" id="a_slider" min="0" max="5" step="0.1" value="2">
+        </div>
+        
+        <div class="slider-group">
+            <label>Pitch/Vertical Velocity (b): <span id="b_val" class="value-span">0.5</span></label>
+            <input type="range" id="b_slider" min="0" max="2" step="0.1" value="0.5">
+        </div>
+        
+        <div class="slider-group">
+            <label>Angular Velocity (ω): <span id="w_val" class="value-span">1.5</span></label>
+            <input type="range" id="w_slider" min="0" max="5" step="0.1" value="1.5">
+        </div>
+
+        <div class="cases">
+            <strong>Special Cases to Discuss:</strong>
+            <ul>
+                <li><strong>b = 0:</strong> Motion collapses into a 2D Circle in the XY plane.</li>
+                <li><strong>ω = 0:</strong> Motion becomes a Straight Line along the Z-axis.</li>
+                <li><strong>a = 0:</strong> Motion is a stationary point moving only in Z.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="helixPlot" class="plot-area"></div>
+</div>
+
+<script>
+    const aSlider = document.getElementById('a_slider');
+    const bSlider = document.getElementById('b_slider');
+    const wSlider = document.getElementById('w_slider');
+
+    function updatePlot() {
+        const a = parseFloat(aSlider.value);
+        const b = parseFloat(bSlider.value);
+        const w = parseFloat(wSlider.value);
+
+        document.getElementById('a_val').innerText = a.toFixed(1);
+        document.getElementById('b_val').innerText = b.toFixed(1);
+        document.getElementById('w_val').innerText = w.toFixed(1);
+
+        let x = [], y = [], z = [], t_vals = [];
+        for (let t = 0; t <= 20; t += 0.05) {
+            x.push(a * Math.cos(w * t));
+            y.push(a * Math.sin(w * t));
+            z.push(b * t);
+            t_vals.push(`Time: ${t.toFixed(1)}s`);
+        }
+
+        const trace = {
+            x: x, y: y, z: z,
+            mode: 'lines',
+            type: 'scatter3d',
+            text: t_vals,
+            line: { width: 6, color: z, colorscale: 'Viridis' },
+            name: 'Helix Path'
+        };
+
+        const layout = {
+            scene: {
+                xaxis: { title: 'X (a·cos)', range: [-5, 5] },
+                yaxis: { title: 'Y (a·sin)', range: [-5, 5] },
+                zaxis: { title: 'Z (bt)', range: [0, 10] },
+                camera: { eye: {x: 1.5, y: 1.5, z: 0.8} }
+            },
+            margin: { l: 0, r: 0, b: 0, t: 0 }
+        };
+
+        Plotly.newPlot('helixPlot', [trace], layout);
+    }
+
+    aSlider.oninput = updatePlot;
+    bSlider.oninput = updatePlot;
+    wSlider.oninput = updatePlot;
+
+    // Initial render
+    updatePlot();
+</script>
+
+</body>
+</html>
