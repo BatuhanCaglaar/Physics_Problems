@@ -54,3 +54,9 @@ $$E_{total} \approx 197.39 \text{ J}$$
 
 - **Spring Stiffness:** A value of nearly $10,000 \text{ N/m}$ indicates a very stiff spring, which is consistent with maintaining a high angular frequency ($10\pi \approx 31.4 \text{ rad/s}$) while moving a relatively large mass of $10 \text{ kg}$.
 - **Energy Check:** The energy depends on the square of both amplitude and frequency. Even though the amplitude is small ($20 \text{ cm}$), the high frequency results in a significant energy level of nearly $200 \text{ Joules}$.
+
+--
+
+## 5) Interactive HTML
+
+file:///C:/Users/batuh/OneDrive/Masa%C3%BCst%C3%BC/S2.html
