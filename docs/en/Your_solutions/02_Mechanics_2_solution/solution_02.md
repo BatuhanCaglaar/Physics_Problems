@@ -56,7 +56,7 @@ $$E_{total} \approx \mathbf{197.39 \text{ J}}$$
 2. **Energy Consistency:** Although the displacement is small ($20 \text{ cm}$), the energy level is significant (nearly $200 \text{ Joules}$) due to the high frequency, as energy is proportional to the square of the angular frequency ($\omega^2$).
 3. **Conservation:** Since there is no damping term ($b=0$) in the motion equation, the total mechanical energy remains constant throughout the oscillation.
 
---
+---
 
 ## 5) Interactive HTML
 
