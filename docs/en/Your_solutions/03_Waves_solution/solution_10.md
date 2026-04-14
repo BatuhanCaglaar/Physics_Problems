@@ -25,3 +25,6 @@ $$u_{total}(\vec{r},t) = \sum_{i=1}^{N} \frac{A}{|\vec{r}-\vec{r_i}|^\alpha} \si
 - **$\alpha = 2.0$**: Very high damping, waves vanish almost immediately after leaving the source.
 
 **Implementation Note:** The provided HTML animation allows users to dynamically place sources and adjust $\alpha$ to observe these physical transitions in real-time.
+
+
+file:///C:/Users/batuh/OneDrive/Masa%C3%BCst%C3%BC/3-Q10.html
