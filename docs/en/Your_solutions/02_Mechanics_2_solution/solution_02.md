@@ -24,9 +24,11 @@ $$
 ## 3) Velocity Derivation (As requested by the Instructor)  
 To derive the total mechanical energy, we must first determine the velocity from the position function.  
 Velocity is the **time derivative of position**:
+
 $$
 v(t) = \frac{dx}{dt} = \frac{d}{dt} [0.2 \cos(10\pi t)]
 $$
+
 $$
 v(t) = 0.2 \cdot (-10\pi) \sin(10\pi t) = -2\pi \sin(10\pi t)
 $$
