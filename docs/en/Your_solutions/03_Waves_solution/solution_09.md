@@ -20,3 +20,6 @@ To solve this numerically, we convert the 2nd order ODE into a system of two 1st
 1. $\frac{dx}{dt} = v$
 2. $\frac{dv}{dt} = -\frac{b}{m}v - \frac{k}{m}x$
 We then apply the 4th Order Runge-Kutta method to iterate through time.
+
+
+file:///C:/Users/batuh/OneDrive/Masa%C3%BCst%C3%BC/3-Q9.html
