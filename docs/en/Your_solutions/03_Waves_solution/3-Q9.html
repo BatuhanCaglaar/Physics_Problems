@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Problem 9: Damped Oscillator (RK4)</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body { font-family: sans-serif; background: #f4f7f6; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        .container { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 90%; max-width: 1000px; }
+        .controls { display: flex; justify-content: space-around; padding: 20px; background: #eef2f3; border-radius: 10px; margin-bottom: 20px; }
+        .slider-box { text-align: center; width: 30%; }
+        .charts { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .status { text-align: center; font-weight: bold; margin-bottom: 10px; color: #2c3e50; }
+        input[type=range] { width: 100%; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Damped Harmonic Oscillator Simulation (RK4 Method)</h2>
+    
+    <div class="controls">
+        <div class="slider-box">
+            <label>Damping Coefficient (b): <span id="b_val">1.0</span></label>
+            <input type="range" id="b_slider" min="0" max="20" step="0.1" value="1">
+        </div>
+        <div class="slider-box">
+            <label>Mass (m): 5 kg</label>
+        </div>
+        <div class="slider-box">
+            <label>Spring Constant (k): 10 N/m</label>
+        </div>
+    </div>
+
+    <div id="status_text" class="status">System State: Underdamped</div>
+
+    <div class="charts">
+        <div id="xt_plot" style="height: 400px;"></div>
+        <div id="phase_plot" style="height: 400px;"></div>
+    </div>
+</div>
+
+<script>
+    const m = 5.0, k = 10.0;
+    const dt = 0.05, steps = 400;
+
+    function derivatives(x, v, b) {
+        return { dx: v, dv: -(b/m)*v - (k/m)*x };
+    }
+
+    function solveRK4(b) {
+        let x = 5.0, v = 0.0, t = 0;
+        let t_data = [], x_data = [], v_data = [];
+
+        for(let i=0; i<steps; i++) {
+            t_data.push(t); x_data.push(x); v_data.push(v);
+
+            let k1 = derivatives(x, v, b);
+            let k2 = derivatives(x + k1.dx*dt/2, v + k1.dv*dt/2, b);
+            let k3 = derivatives(x + k2.dx*dt/2, v + k2.dv*dt/2, b);
+            let k4 = derivatives(x + k3.dx*dt, v + k3.dv*dt, b);
+
+            x += (dt/6) * (k1.dx + 2*k2.dx + 2*k3.dx + k4.dx);
+            v += (dt/6) * (k1.dv + 2*k2.dv + 2*k3.dv + k4.dv);
+            t += dt;
+        }
+        return {t_data, x_data, v_data};
+    }
+
+    function update() {
+        let b = parseFloat(document.getElementById('b_slider').value);
+        document.getElementById('b_val').innerText = b.toFixed(1);
+        
+        let critical_b = 2 * Math.sqrt(m * k);
+        let status = "";
+        if (b === 0) status = "Undamped";
+        else if (b < critical_b) status = "Underdamped";
+        else if (Math.abs(b - critical_b) < 0.2) status = "Critically Damped";
+        else status = "Overdamped";
+        document.getElementById('status_text').innerText = "System State: " + status + " (Critical b ≈ " + critical_b.toFixed(1) + ")";
+
+        let data = solveRK4(b);
+
+        Plotly.newPlot('xt_plot', [{
+            x: data.t_data, y: data.x_data, name: 'x(t)', line: {color: '#3498db'}
+        }], { title: 'Position vs Time', xaxis: {title: 'Time (s)'}, yaxis: {title: 'x (m)'} });
+
+        Plotly.newPlot('phase_plot', [{
+            x: data.x_data, y: data.v_data, name: 'Phase Portrait', line: {color: '#e74c3c'}
+        }], { title: 'Phase Portrait (v vs x)', xaxis: {title: 'Position x'}, yaxis: {title: 'Velocity v'} });
+    }
+
+    document.getElementById('b_slider').oninput = update;
+    update();
+</script>
+
+</body>
+</html>
