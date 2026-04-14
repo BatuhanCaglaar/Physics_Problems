@@ -18,3 +18,5 @@ The type of interference at any point depends on the **Path Difference** ($\Delt
 - **Wavelength ($\lambda$):** Increasing the wavelength results in wider spacing between the interference maxima.
 
 **Implementation Note:** The interactive HTML simulation visualizes the intensity pattern. Dark areas represent destructive interference where the waves cancel each other out, while bright areas represent constructive interference.
+
+file:///C:/Users/batuh/OneDrive/Masa%C3%BCst%C3%BC/3-Q11.html
