@@ -75,7 +75,8 @@ $$E \approx 197.39 \text{ J}$$
 ---
 
 ## 5) Interactive HTML
-[S2.html](file:///C:/Users/batuh/OneDrive/Masa%C3%BCst%C3%BC/S2.html)
+
+file:///C:/Users/batuh/OneDrive/Masa%C3%BCst%C3%BC/S2.html
 
 ---
 
