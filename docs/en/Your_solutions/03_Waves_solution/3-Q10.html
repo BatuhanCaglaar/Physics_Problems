@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Problem 10: Wave Source Superposition</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; background: #1a1a1a; color: white; margin: 0; overflow: hidden; }
+        canvas { background: #000; cursor: crosshair; box-shadow: 0 0 20px rgba(0,0,255,0.2); }
+        .controls { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.7); padding: 15px; border-radius: 8px; text-align: left; }
+        input { width: 100px; }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <strong>Wave Sources Simulation</strong><br>
+        Click on canvas to add dots.<br><br>
+        Alpha (α): <input type="range" id="alpha" min="0" max="2" step="0.1" value="0.5"><br>
+        Omega (ω): <input type="range" id="omega" min="1" max="10" step="0.5" value="5"><br>
+        <button onclick="sources = []">Clear All</button>
+    </div>
+    <canvas id="waveCanvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById('waveCanvas');
+        const ctx = canvas.getContext('2d');
+        let sources = [];
+        let t = 0;
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        canvas.addEventListener('mousedown', (e) => {
+            sources.push({x: e.clientX, y: e.clientY});
+        });
+
+        function draw() {
+            const alpha = parseFloat(document.getElementById('alpha').value);
+            const omega = parseFloat(document.getElementById('omega').value);
+            const k = 0.1, A = 50;
+
+            const imageData = ctx.createImageData(canvas.width, canvas.height);
+            const data = imageData.data;
+
+            // Performance: Sample every 2 pixels for real-time speed
+            for (let y = 0; y < canvas.height; y += 2) {
+                for (let x = 0; x < canvas.width; x += 2) {
+                    let u = 0;
+                    sources.forEach(s => {
+                        const r = Math.sqrt((x - s.x)**2 + (y - s.y)**2) + 1; // Avoid div by zero
+                        u += (A / Math.pow(r, alpha)) * Math.sin(k * r - omega * t);
+                    });
+
+                    const color = 128 + u;
+                    const index = (y * canvas.width + x) * 4;
+                    data[index] = color * 0.5;     // R
+                    data[index + 1] = color * 0.8; // G
+                    data[index + 2] = color;       // B
+                    data[index + 3] = 255;         // A
+                    
+                    // Fill neighbor to compensate sampling
+                    data[index+4] = data[index+1*canvas.width*4] = color;
+                }
+            }
+            ctx.putImageData(imageData, 0, 0);
+            t += 0.05;
+            requestAnimationFrame(draw);
+        }
+        draw();
+    </script>
+</body>
+</html>

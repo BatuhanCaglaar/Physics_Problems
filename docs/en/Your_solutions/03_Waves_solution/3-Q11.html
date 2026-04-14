@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Problem 11: Young's Two-Slit Interference</title>
+    <style>
+        body { font-family: sans-serif; background: #000; color: #fff; margin: 0; text-align: center; }
+        .ui { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); 
+              background: rgba(20, 20, 20, 0.9); padding: 20px; border-radius: 15px; display: flex; gap: 20px; }
+        canvas { display: block; margin: auto; }
+    </style>
+</head>
+<body>
+    <h2 style="margin-top:10px;">Young's Double Slit Interference Pattern</h2>
+    <canvas id="youngCanvas"></canvas>
+    
+    <div class="ui">
+        <div>Slit Distance (d): <input type="range" id="dist" min="10" max="200" value="60"></div>
+        <div>Wavelength (λ): <input type="range" id="lambda" min="10" max="100" value="30"></div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('youngCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = 800; canvas.height = 500;
+        let t = 0;
+
+        function animate() {
+            const d = parseFloat(document.getElementById('dist').value);
+            const L = parseFloat(document.getElementById('lambda').value);
+            const k = (2 * Math.PI) / L;
+            const w = 5; 
+            const A = 100;
+
+            const img = ctx.createImageData(canvas.width, canvas.height);
+            const r1 = { x: 100, y: canvas.height/2 - d/2 };
+            const r2 = { x: 100, y: canvas.height/2 + d/2 };
+
+            for (let x = 0; x < canvas.width; x++) {
+                for (let y = 0; y < canvas.height; y++) {
+                    const d1 = Math.sqrt((x - r1.x)**2 + (y - r1.y)**2) + 0.1;
+                    const d2 = Math.sqrt((x - r2.x)**2 + (y - r2.y)**2) + 0.1;
+
+                    // Resultant displacement formula provided in Problem 11
+                    const u = (A/d1) * Math.sin(k*d1 - w*t) + (A/d2) * Math.sin(k*d2 - w*t);
+                    
+                    const val = 128 + u * 15;
+                    const idx = (y * canvas.width + x) * 4;
+                    data = img.data;
+                    data[idx] = val * 0.2; // Interference Color (Deep Blue/Cyan)
+                    data[idx+1] = val * 0.6;
+                    data[idx+2] = val;
+                    data[idx+3] = 255;
+                }
+            }
+            ctx.putImageData(img, 0, 0);
+            
+            // Draw the slit locations
+            ctx.fillStyle = "white";
+            ctx.beginPath();
+            ctx.arc(r1.x, r1.y, 5, 0, Math.PI*2);
+            ctx.arc(r2.x, r2.y, 5, 0, Math.PI*2);
+            ctx.fill();
+
+            t += 0.1;
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
+</body>
+</html>
