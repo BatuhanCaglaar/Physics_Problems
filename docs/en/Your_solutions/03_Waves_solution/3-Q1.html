@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Problem 1: Sound Waves - Air vs Water</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; display: flex; flex-direction: column; align-items: center; margin: 0; padding: 20px; }
+        .container { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 850px; }
+        h2 { color: #2c3e50; margin-bottom: 5px; }
+        .canvas-container { margin: 20px 0; border: 2px solid #eee; border-radius: 10px; overflow: hidden; }
+        canvas { display: block; background: #fff; }
+        .controls { background: #eef2f3; padding: 20px; border-radius: 10px; display: flex; justify-content: space-around; align-items: center; }
+        .info-panel { margin-top: 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .info-card { padding: 10px; border-radius: 8px; font-weight: bold; }
+        .air-card { background: #fff3e0; color: #e65100; border-left: 5px solid #e65100; }
+        .water-card { background: #e1f5fe; color: #01579b; border-left: 5px solid #01579b; }
+        label { font-weight: bold; color: #34495e; }
+        input[type=range] { width: 200px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Section 3: Wave Properties Visualization</h2>
+    <p>Comparison of wavelength in <b>Air</b> (343 m/s) and <b>Water</b> (1482 m/s)</p>
+
+    <div class="controls">
+        <div>
+            <label>Frequency (f): <span id="freq_val">440</span> Hz</label><br>
+            <input type="range" id="freq_slider" min="100" max="1000" step="10" value="440">
+        </div>
+        <div style="font-size: 0.9em; color: #7f8c8d;">
+            *Waves are longitudinal (sound), visualized as ripples.
+        </div>
+    </div>
+
+    <div class="canvas-container">
+        <canvas id="waveCanvas" width="800" height="300"></canvas>
+    </div>
+
+    <div class="info-panel">
+        <div class="info-card air-card">
+            AIR (v = 343 m/s)<br>
+            Wavelength (λ): <span id="lambda_air">0.78</span> m
+        </div>
+        <div class="info-card water-card">
+            WATER (v = 1482 m/s)<br>
+            Wavelength (λ): <span id="lambda_water">3.37</span> m
+        </div>
+    </div>
+</div>
+
+<script>
+    const canvas = document.getElementById('waveCanvas');
+    const ctx = canvas.getContext('2d');
+    const freqSlider = document.getElementById('freq_slider');
+    
+    const v_air = 343;
+    const v_water = 1482;
+    let t = 0;
+
+    function drawRipples(y_center, v, color, label) {
+        const freq = parseFloat(freqSlider.value);
+        const lambda = v / freq;
+        const scale = 50; // Visual scale factor
+
+        // Draw label
+        ctx.fillStyle = color;
+        ctx.font = "bold 14px Arial";
+        ctx.fillText(label, 10, y_center - 50);
+
+        // Calculate and display lambda
+        if(v === v_air) document.getElementById('lambda_air').innerText = lambda.toFixed(3);
+        else document.getElementById('lambda_water').innerText = lambda.toFixed(3);
+
+        // Draw waves
+        ctx.beginPath();
+        for (let x = 0; x < canvas.width; x++) {
+            // Sound wave density mapping to visual sine wave
+            // Phase = k*x - w*t where k = 2pi/lambda
+            const phase = (2 * Math.PI * x) / (lambda * scale) - (2 * Math.PI * freq * t / 100);
+            const y_offset = Math.sin(phase) * 30;
+            
+            if (x === 0) ctx.moveTo(x, y_center + y_offset);
+            else ctx.lineTo(x, y_center + y_offset);
+        }
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Draw Particle Representation (Density)
+        for(let x=20; x<canvas.width; x+=40) {
+            const phase = (2 * Math.PI * x) / (lambda * scale) - (2 * Math.PI * freq * t / 100);
+            const particleX = x + Math.sin(phase) * 15;
+            ctx.beginPath();
+            ctx.arc(particleX, y_center + 60, 3, 0, Math.PI*2);
+            ctx.fillStyle = color;
+            ctx.fill();
+        }
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        document.getElementById('freq_val').innerText = freqSlider.value;
+
+        // Draw Air Section
+        drawRipples(80, v_air, "#e65100", "AIR (Slower Velocity -> Short Wavelength)");
+        
+        // Separator line
+        ctx.beginPath();
+        ctx.moveTo(0, 150);
+        ctx.lineTo(800, 150);
+        ctx.strokeStyle = "#eee";
+        ctx.stroke();
+
+        // Draw Water Section
+        drawRipples(210, v_water, "#01579b", "WATER (Faster Velocity -> Long Wavelength)");
+
+        t += 0.5;
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+</script>
+
+</body>
+</html>
