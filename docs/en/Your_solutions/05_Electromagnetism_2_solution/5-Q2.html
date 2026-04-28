@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Problem 2: Magnetic Field Dynamics</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #0f172a; color: white; text-align: center; margin: 0; overflow: hidden; }
+        .ui { position: absolute; top: 10px; width: 100%; pointer-events: none; }
+        .stats { background: rgba(30, 41, 59, 0.9); padding: 15px; border-radius: 10px; display: inline-block; pointer-events: auto; border: 1px solid #334155; }
+        canvas { display: block; }
+        .vector-text { color: #22d3ee; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="ui">
+        <div class="stats">
+            <strong>Parallel Wires (Opposite Currents: 5A)</strong><br>
+            Midpoint Total Field: <span class="vector-text">40 μT (Directed Downward)</span>
+        </div>
+    </div>
+    <canvas id="ampereAnim"></canvas>
+
+    <script>
+        const canvas = document.getElementById('ampereAnim');
+        const ctx = canvas.getContext('2d');
+        let offset = 0;
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.onresize = resize;
+        resize();
+
+        const wire1 = { x: -120, color: '#f87171', label: 'I = +5A (Out of Page)' };
+        const wire2 = { x: 120, color: '#60a5fa', label: 'I = -5A (Into Page)' };
+
+        function draw() {
+            ctx.fillStyle = '#0f172a';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+
+            // Draw Magnetic Field Lines (Circular)
+            for (let r = 40; r < 300; r += 40) {
+                ctx.lineWidth = 1;
+                
+                // Wire 1 (Counter-Clockwise - Right Hand Rule for 'Out')
+                ctx.strokeStyle = 'rgba(248, 113, 113, 0.3)';
+                ctx.beginPath();
+                ctx.arc(centerX + wire1.x, centerY, r, 0, Math.PI * 2);
+                ctx.setLineDash([5, 10]);
+                ctx.lineDashOffset = -offset * (100/r); 
+                ctx.stroke();
+
+                // Wire 2 (Clockwise - Right Hand Rule for 'In')
+                ctx.strokeStyle = 'rgba(96, 165, 250, 0.3)';
+                ctx.beginPath();
+                ctx.arc(centerX + wire2.x, centerY, r, 0, Math.PI * 2);
+                ctx.setLineDash([5, 10]);
+                ctx.lineDashOffset = offset * (100/r);
+                ctx.stroke();
+            }
+
+            ctx.setLineDash([]); 
+
+            // Draw Wires
+            [wire1, wire2].forEach(w => {
+                ctx.fillStyle = w.color;
+                ctx.beginPath();
+                ctx.arc(centerX + w.x, centerY, 15, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.strokeStyle = 'white';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                
+                // Symbols (Dot for Out, Cross for In)
+                ctx.fillStyle = 'white';
+                ctx.font = 'bold 16px Arial';
+                if (w.x < 0) ctx.fillText("●", centerX + w.x - 7, centerY + 6); 
+                else ctx.fillText("×", centerX + w.x - 7, centerY + 6);
+                
+                ctx.font = '12px Arial';
+                ctx.fillText(w.label, centerX + w.x - 50, centerY + 35);
+            });
+
+            // Midpoint Vector (B_total)
+            ctx.strokeStyle = '#22d3ee';
+            ctx.lineWidth = 5;
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.lineTo(centerX, centerY + 120); 
+            ctx.stroke();
+            
+            // Arrowhead
+            ctx.beginPath();
+            ctx.moveTo(centerX - 12, centerY + 105);
+            ctx.lineTo(centerX, centerY + 120);
+            ctx.lineTo(centerX + 12, centerY + 105);
+            ctx.stroke();
+
+            ctx.fillStyle = '#22d3ee';
+            ctx.font = 'bold 16px Arial';
+            ctx.fillText("B_Total (Sum)", centerX + 20, centerY + 80);
+
+            offset += 0.5;
+            requestAnimationFrame(draw);
+        }
+        draw();
+    </script>
+</body>
+</html>

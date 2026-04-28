@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Problem 10: Speed in Diamond</title>
+    <style>
+        body { font-family: sans-serif; background: #111; color: white; text-align: center; padding: 50px; }
+        .track { background: #333; height: 40px; width: 80%; margin: 20px auto; border-radius: 20px; position: relative; overflow: hidden; }
+        .photon { width: 20px; height: 20px; background: yellow; border-radius: 50%; position: absolute; top: 10px; box-shadow: 0 0 15px yellow; }
+        .label { font-weight: bold; margin-bottom: 5px; }
+    </style>
+</head>
+<body>
+    <h2>Light Speed Comparison</h2>
+    <div class="label">Vacuum (c = 3.00 × 10⁸ m/s)</div>
+    <div class="track"><div id="p1" class="photon"></div></div>
+    
+    <div class="label">Diamond (v = 1.24 × 10⁸ m/s)</div>
+    <div class="track" style="background: #1e3a8a;"><div id="p2" class="photon" style="background: #22d3ee; box-shadow: 0 0 15px #22d3ee;"></div></div>
+
+    <p>The photon in Diamond moves <b>2.42 times slower</b> than in Vacuum.</p>
+
+    <script>
+        let pos1 = 0, pos2 = 0;
+        function animate() {
+            pos1 += 5;      // Speed c
+            pos2 += 5/2.42; // Speed in Diamond
+            if(pos1 > window.innerWidth * 0.8) { pos1 = 0; pos2 = 0; }
+            document.getElementById('p1').style.left = pos1 + "px";
+            document.getElementById('p2').style.left = pos2 + "px";
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
+</body>
+</html>

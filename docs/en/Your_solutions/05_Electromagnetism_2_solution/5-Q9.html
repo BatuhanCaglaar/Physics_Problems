@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Problem 9: Snell's Law Refraction</title>
+    <style>
+        body { font-family: sans-serif; background: #f8fafc; text-align: center; margin: 0; padding: 20px; }
+        canvas { background: white; border: 2px solid #334155; border-radius: 8px; cursor: crosshair; }
+        .header { background: #1e293b; color: white; padding: 15px; border-radius: 8px 8px 0 0; width: 600px; margin: auto; }
+        .data { background: #e2e8f0; padding: 10px; width: 600px; margin: auto; border-radius: 0 0 8px 8px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="header">Refraction: Air (n=1.0) to Glass (n=1.5)</div>
+    <canvas id="snellCanvas" width="600" height="400"></canvas>
+    <div class="data">
+        Incidence Angle: <span id="angle_i">30</span>° | 
+        Refraction Angle: <span id="angle_r">19.5</span>°
+    </div>
+
+    <script>
+        const canvas = document.getElementById('snellCanvas');
+        const ctx = canvas.getContext('2d');
+        const n1 = 1.0, n2 = 1.5;
+
+        canvas.onmousemove = function(e) {
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = 300, centerY = 200;
+
+            if (y > centerY) return; // Top half only
+
+            let angleI = Math.atan2(centerX - x, centerY - y);
+            let sinR = (n1 * Math.sin(angleI)) / n2;
+            let angleR = Math.asin(sinR);
+
+            ctx.clearRect(0, 0, 600, 400);
+
+            // Draw Water/Glass
+            ctx.fillStyle = "#bfdbfe"; ctx.fillRect(0, 200, 600, 200);
+
+            // Normal line
+            ctx.setLineDash([5, 5]); ctx.strokeStyle = "#94a3b8";
+            ctx.beginPath(); ctx.moveTo(300, 0); ctx.lineTo(300, 400); ctx.stroke();
+            ctx.setLineDash([]); 
+
+            // Incident Ray
+            ctx.strokeStyle = "#ef4444"; ctx.lineWidth = 4;
+            ctx.beginPath(); ctx.moveTo(centerX - Math.sin(angleI)*200, centerY - Math.cos(angleI)*200);
+            ctx.lineTo(centerX, centerY); ctx.stroke();
+
+            // Refracted Ray
+            ctx.strokeStyle = "#3b82f6";
+            ctx.beginPath(); ctx.moveTo(centerX, centerY);
+            ctx.lineTo(centerX + Math.sin(angleR)*200, centerY + Math.cos(angleR)*200);
+            ctx.stroke();
+
+            document.getElementById('angle_i').innerText = Math.abs(angleI * 180 / Math.PI).toFixed(1);
+            document.getElementById('angle_r').innerText = Math.abs(angleR * 180 / Math.PI).toFixed(1);
+        };
+        // Initial Draw
+        canvas.dispatchEvent(new MouseEvent('mousemove', {clientX: 400, clientY: 50}));
+    </script>
+</body>
+</html>
