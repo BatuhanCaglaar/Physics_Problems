@@ -27,3 +27,6 @@ $$E_x = \frac{k(2q)}{r^2} \cos\theta - \frac{kq}{r^2} \cos\theta = \frac{kq}{r^2
 ## 4. Limit $y \gg a$
 The system acts like a single point charge of $+3q$:
 $$\vec{E} \approx \frac{k(3q)}{y^2} \hat{j}$$
+
+
+file:///C:/Users/batuh/OneDrive/Masa%C3%BCst%C3%BC/4-Q6.html
