@@ -21,3 +21,6 @@ $$\theta_2 = \arcsin\left(\frac{1}{3}\right) \approx 19.47^\circ$$
 
 **Answer:**
 The angle of refraction is approximately **$19.47^\circ$**.
+
+
+file:///C:/Users/batuh/OneDrive/Masa%C3%BCst%C3%BC/5-Q9.html
