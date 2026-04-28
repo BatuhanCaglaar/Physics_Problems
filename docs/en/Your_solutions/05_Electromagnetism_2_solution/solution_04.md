@@ -1,18 +1,19 @@
-# Problem 3: Magnetic Field from a Segment
+# Problem 4: Torque on a Rectangular Loop
 
 **Given:**
-- Length ($dL$): $0.1 \, \text{m}$
-- Current ($I$): $3 \, \text{A}$
-- Distance ($r$): $0.2 \, \text{m}$
-- Angle ($\theta$): $90^\circ$ (Perpendicular)
+- Dimensions: $0.1 \, \text{m}$ by $0.05 \, \text{m} \implies \text{Area } (A) = 0.005 \, \text{m}^2$
+- Current ($I$): $2 \, \text{A}$
+- Magnetic Field ($B$): $0.3 \, \text{T}$
+- Orientation: Field parallel to the plane ($\theta = 90^\circ$ between normal vector and B).
 
 ---
 
 ## Solution:
-The Biot-Savart Law for a small segment is:
-$$dB = \frac{\mu_0}{4\pi} \frac{I \cdot dL \cdot \sin\theta}{r^2}$$
-$$dB = (10^{-7}) \frac{3 \cdot 0.1 \cdot \sin(90^\circ)}{(0.2)^2}$$
-$$dB = 10^{-7} \frac{0.3}{0.04} = 10^{-7} \cdot 7.5 = 7.5 \times 10^{-7} \, \text{T}$$
+The torque ($\tau$) is given by:
+$$\tau = I \cdot A \cdot B \cdot \sin\theta$$
+Since the field is parallel to the plane, the angle between the loop's normal and B is $90^\circ$ ($\sin 90^\circ = 1$):
+$$\tau = 2 \cdot 0.005 \cdot 0.3 \cdot 1$$
+$$\tau = 0.003 \, \text{N}\cdot\text{m}$$
 
 **Answer:**
-The magnetic field at point P is **$7.5 \times 10^{-7} \, \text{T}$**.
+The magnitude of the torque is **$3 \times 10^{-3} \, \text{N}\cdot\text{m}$**.
