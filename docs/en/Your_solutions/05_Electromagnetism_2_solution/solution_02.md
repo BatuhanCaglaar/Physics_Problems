@@ -19,3 +19,6 @@ $$B_{total} = \frac{(4\pi \times 10^{-7}) \cdot 5}{\pi \cdot 0.05} = \frac{20 \t
 
 **Answer:**
 The magnetic field magnitude is **$40 \, \mu\text{T}$** and the direction is **into the page** (perpendicular to the plane of the wires).
+
+
+file:///C:/Users/batuh/OneDrive/Masa%C3%BCst%C3%BC/5-Q2.html
