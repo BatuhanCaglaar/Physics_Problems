@@ -17,3 +17,6 @@
 
 **Answer:**
 The radius is **2.39 mm**.
+
+
+file:///C:/Users/batuh/OneDrive/Masa%C3%BCst%C3%BC/4-Q7.html
