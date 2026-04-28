@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Problem 7: Cyclotron Motion</title>
+    <style>
+        body { font-family: sans-serif; background: #2c3e50; color: white; text-align: center; }
+        canvas { background: #000; border: 2px solid #7f8c8d; border-radius: 50%; }
+        .controls { margin: 20px; }
+    </style>
+</head>
+<body>
+    <h2>Electron Path in Magnetic Field (B = 0.1 T)</h2>
+    <div class="controls">
+        Voltage (V): <input type="range" id="v_range" min="1000" max="10000" step="500" value="5000">
+        <span id="v_val">5000</span> V
+    </div>
+    <canvas id="cycCanvas" width="400" height="400"></canvas>
+    <p>Radius (R) ≈ <span id="r_val">2.39</span> mm</p>
+
+    <script>
+        const canvas = document.getElementById('cycCanvas');
+        const ctx = canvas.getContext('2d');
+        const vRange = document.getElementById('v_range');
+
+        function draw() {
+            const V = vRange.value;
+            const B = 0.1;
+            const e = 1.6e-19, m = 9.11e-31;
+            const velocity = Math.sqrt((2 * e * V) / m);
+            const radius = (m * velocity) / (e * B); // in meters
+            
+            document.getElementById('v_val').innerText = V;
+            document.getElementById('r_val').innerText = (radius * 1000).toFixed(2);
+
+            ctx.clearRect(0, 0, 400, 400);
+            ctx.strokeStyle = "#3498db";
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            // Scale radius for visibility: 1mm = 50px
+            ctx.arc(200, 200, radius * 50000, 0, Math.PI * 2);
+            ctx.stroke();
+            
+            ctx.fillStyle = "white";
+            ctx.fillText("B Field (out of screen)", 150, 200);
+        }
+
+        vRange.oninput = draw;
+        draw();
+    </script>
+</body>
+</html>

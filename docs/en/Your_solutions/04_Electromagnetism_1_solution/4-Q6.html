@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Problem 6: Electric Field Simulation</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; background: #f4f4f4; }
+        canvas { background: white; border: 1px solid #ccc; cursor: crosshair; }
+        .info { padding: 10px; background: #34495e; color: white; border-radius: 5px; display: inline-block; margin: 10px; }
+    </style>
+</head>
+<body>
+    <h2>Electric Field of +q and +2q Charges</h2>
+    <div class="info" id="stats">Hover to see E field vector</div><br>
+    <canvas id="fieldCanvas" width="600" height="400"></canvas>
+
+    <script>
+        const canvas = document.getElementById('fieldCanvas');
+        const ctx = canvas.getContext('2d');
+        const a = 100; // Visual scale for 'a'
+        const q1 = { x: 300 - a, y: 200, q: 1 };
+        const q2 = { x: 300 + a, y: 200, q: 2 };
+        const k = 50000;
+
+        function drawField() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            // Draw charges
+            ctx.fillStyle = "red";
+            ctx.beginPath(); ctx.arc(q1.x, q1.y, 10, 0, 7); ctx.fill();
+            ctx.fillText("+q", q1.x-10, q1.y-15);
+            ctx.beginPath(); ctx.arc(q2.x, q2.y, 15, 0, 7); ctx.fill();
+            ctx.fillText("+2q", q2.x-10, q2.y-20);
+        }
+
+        canvas.onmousemove = function(e) {
+            const rect = canvas.getBoundingClientRect();
+            const px = e.clientX - rect.left;
+            const py = e.clientY - rect.top;
+
+            const r1 = Math.sqrt((px-q1.x)**2 + (py-q1.y)**2);
+            const r2 = Math.sqrt((px-q2.x)**2 + (py-q2.y)**2);
+
+            const E1 = k * q1.q / (r1**2);
+            const E2 = k * q2.q / (r2**2);
+
+            const Ex = E1*(px-q1.x)/r1 + E2*(px-q2.x)/r2;
+            const Ey = E1*(py-q1.y)/r1 + E2*(py-q2.y)/r2;
+            const E_total = Math.sqrt(Ex*Ex + Ey*Ey);
+
+            drawField();
+            // Draw Vector
+            ctx.strokeStyle = "blue";
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(px, py);
+            ctx.lineTo(px + Ex*0.2, py + Ey*0.2); // Scaled for visibility
+            ctx.stroke();
+
+            document.getElementById('stats').innerText = `E_total: ${E_total.toFixed(2)} N/C | Ex: ${Ex.toFixed(2)} | Ey: ${Ey.toFixed(2)}`;
+        };
+        drawField();
+    </script>
+</body>
+</html>
